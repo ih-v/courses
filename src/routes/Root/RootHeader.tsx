@@ -1,0 +1,66 @@
+import { Dispatch } from "react";
+import { useNavigate } from "react-router-dom";
+
+import SchoolIcon from "@mui/icons-material/School";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Toolbar,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+
+import { style } from "../../constants";
+
+type RootHeaderProps = {
+  themeName: string;
+  setThemeName: Dispatch<React.SetStateAction<"light" | "dark">>;
+};
+
+const RootHeader = ({ themeName, setThemeName }: RootHeaderProps) => {
+  const navigate = useNavigate();
+  const handleThemeChange = () => {
+    setThemeName((prev) => (prev === "light" ? "dark" : "light"));
+  };
+  return (
+    <AppBar component="nav" sx={{ height: style.ROOT_HEADER_HEIGHT }}>
+      <Toolbar>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          sx={{ mr: 2 }}
+          onClick={() => navigate("/")}
+        >
+          <SchoolIcon />
+        </IconButton>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Typography variant="h6" noWrap component="div">
+            Courses platform
+          </Typography>
+          <Typography variant="body1" noWrap component="div">
+            Learn, grow, ahieve goals...
+          </Typography>
+        </Box>
+        <Box sx={{ flexGrow: 1 }} />
+        <Tooltip
+          title={
+            themeName === "light"
+              ? "Toggle to dark theme"
+              : "Toggle to light theme"
+          }
+        >
+          <IconButton edge="end" onClick={handleThemeChange} color="inherit">
+            {themeName === "light" && <DarkModeIcon />}
+            {themeName === "dark" && <LightModeIcon />}
+          </IconButton>
+        </Tooltip>
+      </Toolbar>
+    </AppBar>
+  );
+};
+
+export default RootHeader;
