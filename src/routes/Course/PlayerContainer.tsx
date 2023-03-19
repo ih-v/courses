@@ -1,6 +1,7 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
 
 import noVideo from "../../assets/no-video.webp";
+import lockedVideo from "../../assets/locked.jpg";
 import SpeedIcon from "@mui/icons-material/Speed";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
@@ -16,6 +17,7 @@ import {
   Typography,
 } from "@mui/material";
 
+import FluidImage from "../../components/FluidImage";
 import VideoPlayer from "../../components/VideoPlayer";
 
 const enablePIPMode = (VideoElement: HTMLVideoElement) => {
@@ -39,8 +41,8 @@ const PlayerContainer = ({
   title: string;
   isDisplayed: boolean;
 }) => {
+  const [status, setStatus] = useState<"video" | "locked" | "error">("video");
   const [speed, setSpeed] = useState(1);
-  const [error, setError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -81,9 +83,15 @@ const PlayerContainer = ({
     }
   }, [speed]);
 
-  //time control
+  //time & status control
   useEffect(() => {
-    setError(false);
+    if (link === "corrupted") {
+      setStatus(() => "error");
+    } else if (link === "locked") {
+      setStatus(() => "locked");
+    } else {
+      setStatus("video");
+    }
     if (videoRef.current) {
       videoRef.current.currentTime = Number(localStorage.getItem(link));
     }
@@ -112,13 +120,19 @@ const PlayerContainer = ({
   }, [link]);
 
   const handleError = useCallback(() => {
-    setError(true);
+    setStatus("error");
   }, []);
 
   const handlePIP = () => {
     if (videoRef.current) {
       enablePIPMode(videoRef.current);
     }
+  };
+
+  const displayTitle = () => {
+    if (status === "locked") return `Video locked: ${title}`;
+    if (status === "error") return `Video corrupted: ${title}`;
+    return title;
   };
 
   return (
@@ -132,7 +146,7 @@ const PlayerContainer = ({
       }}
     >
       <CardHeader
-        title={title && title.slice(0, 60) + (title.length >= 60 ? "..." : "")}
+        title={displayTitle().slice(0, 60) + (title.length >= 60 ? "..." : "")}
         titleTypographyProps={{
           color: "primary",
           fontWeight: "bold",
@@ -151,18 +165,9 @@ const PlayerContainer = ({
           flexShrink: 1,
         }}
       >
-        {link && (error || link === "corrupted") ? (
-          <img
-            loading="lazy"
-            src={noVideo}
-            alt=""
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "fill",
-            }}
-          />
-        ) : (
+        {status === "locked" && <FluidImage src={lockedVideo} />}
+        {status === "error" && <FluidImage src={noVideo} />}
+        {status === "video" && (
           <VideoPlayer
             ref={videoRef}
             link={link}

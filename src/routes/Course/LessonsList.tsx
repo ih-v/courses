@@ -17,21 +17,37 @@ import { style } from "../../constants";
 
 import Lesson from "./Lesson";
 
+export type SetVideoFunction = (
+  link: string,
+  title: string,
+  orderNum: number
+) => void;
+
 const LessonsList = () => {
   const course = useAsyncValue() as ICourse;
   const { state, setState } = useCoursesContext();
   const brlg = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
   const theme = useTheme();
 
-  const setVideo = useCallback(
-    (link: string, title: string) =>
-      setState((prev) => ({ ...prev, videoLink: link, videoTitle: title })),
+  const setVideo: SetVideoFunction = useCallback(
+    (link, title, orderNum) =>
+      setState((prev) => ({
+        ...prev,
+        videoLink: link,
+        videoTitle: `#${orderNum + 1} ${title}`,
+      })),
     [setState]
   );
 
   useEffect(() => {
-    const { link, title } = course.lessons[0];
-    setVideo(link ?? "corrupted", title ?? "Video corrupted or locked");
+    const { link, title, status } = course.lessons[0];
+    if (!link) {
+      setVideo("corrupted", title, 0);
+    } else if (status === "locked") {
+      setVideo("locked", title, 0);
+    } else {
+      setVideo(link, title, 0);
+    }
   }, [course.lessons, setVideo]);
 
   const containerPaddings = brlg ? 0 : 48;
@@ -76,6 +92,7 @@ const LessonsList = () => {
                 key={item.id}
                 selectedLink={state.videoLink}
                 item={item}
+                orderNum={i}
                 onClick={setVideo}
               />
               {i < items.length - 1 && (

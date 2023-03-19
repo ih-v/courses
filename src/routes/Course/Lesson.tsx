@@ -10,21 +10,23 @@ import {
 } from "@mui/material";
 
 import { ILesson } from "../../types";
+import { SetVideoFunction } from "./LessonsList";
 import secondsToTime from "../../utils/secondsToTime";
 
 type LessonProps = {
   selectedLink: string;
   item: ILesson;
-  onClick: (link: string, title: string) => void;
+  orderNum: number;
+  onClick: SetVideoFunction;
 };
 
-const Lesson = ({ item, onClick, selectedLink }: LessonProps) => {
+const Lesson = ({ selectedLink, item, orderNum, onClick }: LessonProps) => {
   const corrupted = !item.link;
   const locked = item.status === "locked";
 
   const handleClick = () => {
     if (item.link && !locked) {
-      onClick(item.link, item.title);
+      onClick(item.link, item.title, orderNum);
     }
   };
 
@@ -33,6 +35,11 @@ const Lesson = ({ item, onClick, selectedLink }: LessonProps) => {
       <ListItemButton
         selected={!corrupted && selectedLink === item.link}
         disabled={locked || corrupted}
+        sx={{
+          "&.Mui-selected": {
+            backgroundColor: "primary.light",
+          },
+        }}
         onClick={() => handleClick()}
       >
         <ListItemAvatar>
@@ -42,7 +49,7 @@ const Lesson = ({ item, onClick, selectedLink }: LessonProps) => {
           />
         </ListItemAvatar>
         <ListItemText
-          primary={item.title}
+          primary={`#${orderNum + 1} ${item.title}`}
           secondary={`Duration: ${secondsToTime(item.duration)}`}
         />
         {locked && (

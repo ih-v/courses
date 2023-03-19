@@ -27,7 +27,7 @@ const VideoPlayer = forwardRef<HTMLVideoElement, VideoPlayerProps>(
           });
           if (errorCb) {
             hls.on(Hls.Events.ERROR, function (event, data) {
-              if (data.fatal) {
+              if (data.fatal && link) {
                 errorCb(event, data);
               }
             });

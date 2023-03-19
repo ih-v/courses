@@ -54,7 +54,7 @@ export const CoursesProvider = ({ children }: { children: ReactNode }) => {
           display: !courseId ? "none" : "block",
           position: { sm: "sticky", md: "static" },
           top: smTop,
-          width: { sm: "100%", md: style.VIDEO_MAX_WIDH },
+          width: { xs: "100%", md: style.VIDEO_MAX_WIDH },
           minWidth: style.CARD_MIN_WIDTH,
           aspectRatio,
           mt: style.MARGIN_PREV,

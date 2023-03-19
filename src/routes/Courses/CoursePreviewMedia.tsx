@@ -6,6 +6,7 @@ import loadingImg from "../../assets/loading-white.gif";
 
 import VideoPlayer from "../../components/VideoPlayer";
 import { CoursePreviewState } from "./CoursePreview";
+import FluidImage from "../../components/FluidImage";
 
 type CoursePreviewMediaProps = {
   status: CoursePreviewState;
@@ -57,42 +58,13 @@ const CoursePreviewMedia = ({
           errorCb={onError}
         />
       )}
-      {status === "pending" && (
-        <img
-          loading="lazy"
-          src={loadingImg}
-          alt=""
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "fill",
-          }}
-        />
-      )}
-      {status === "error" && (
-        <img
-          loading="lazy"
-          src={noVideo}
-          alt=""
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "fill",
-          }}
-        />
-      )}
+      {status === "pending" && <FluidImage src={loadingImg} />}
+      {status === "error" && <FluidImage src={noVideo} />}
       {status === "idle" && (
-        <img
-          loading="lazy"
+        <FluidImage
           src={imageLink}
-          alt=""
           onError={(e) => {
             e.currentTarget.src = noImg;
-          }}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "fill",
           }}
         />
       )}
