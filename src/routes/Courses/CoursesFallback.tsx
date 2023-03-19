@@ -1,6 +1,8 @@
 import { Box, Skeleton, Stack } from "@mui/material";
 
-export const FallbackElement = () => {
+import { style } from "../../constants";
+
+const FallbackElement = () => {
   return (
     <Stack spacing={2} sx={{ width: 400, height: 500 }}>
       <Skeleton animation="wave" variant="text" sx={{ fontSize: "4rem" }} />
@@ -35,6 +37,7 @@ const CoursesFallback = () => {
         gap: 2,
         justifyContent: "center",
         flexWrap: "wrap",
+        mt: style.MARGIN_PREV,
       }}
     >
       <FallbackElement />

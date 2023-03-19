@@ -1,10 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { useAsyncValue } from "react-router-dom";
-
-import { ICourse } from "../../types";
 import { useCoursesContext } from "../../contexts/CoursesContext";
 
-import Lesson from "./Lesson";
 import {
   Divider,
   List,
@@ -14,7 +11,11 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+
+import { ICourse } from "../../types";
 import { style } from "../../constants";
+
+import Lesson from "./Lesson";
 
 const LessonsList = () => {
   const course = useAsyncValue() as ICourse;

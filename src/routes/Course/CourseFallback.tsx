@@ -1,8 +1,10 @@
 import { Skeleton, Stack } from "@mui/material";
 
+import { style } from "../../constants";
+
 const CourseFallback = () => {
   return (
-    <Stack spacing={1} sx={{ width: "100%" }}>
+    <Stack spacing={1} sx={{ width: "100%", mt: style.MARGIN_PREV }}>
       <Stack spacing={1} direction="row">
         <Skeleton
           animation="wave"

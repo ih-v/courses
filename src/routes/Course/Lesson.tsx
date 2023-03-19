@@ -10,8 +10,7 @@ import {
 } from "@mui/material";
 
 import { ILesson } from "../../types";
-
-import { secondsToTime } from "./CorseDescription";
+import secondsToTime from "../../utils/secondsToTime";
 
 type LessonProps = {
   selectedLink: string;

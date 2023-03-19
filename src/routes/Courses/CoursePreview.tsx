@@ -66,9 +66,15 @@ const CoursePreview = ({ item }: CoursePreviewProps) => {
         <CardHeader
           title={item.title}
           subheader={`Published: ${new Date(item.launchDate).toDateString()}`}
+          titleTypographyProps={{ color: "primary" }}
         />
 
-        <CardMedia sx={{ width: "100%", height: "250px" }}>
+        <CardMedia
+          sx={{
+            width: "100%",
+            height: { sx: "210px", md: "220px", lg: "230px" },
+          }}
+        >
           <CoursePreviewMedia
             status={status}
             imageLink={item.previewImageLink + "/cover.webp"}
@@ -79,12 +85,14 @@ const CoursePreview = ({ item }: CoursePreviewProps) => {
         </CardMedia>
         <CardContent>
           <Typography variant="body1">{item.description}</Typography>
-          <Typography gutterBottom variant="h6">
+          <Typography gutterBottom variant="h6" color="secondary.light">
             {`Lessons count: ${item.lessonsCount}`}
           </Typography>
-          <Typography gutterBottom variant="body2" color="text.secondary">
-            {`Skills: ${item.meta.skills?.join(", ")}`}
-          </Typography>
+          {item.meta.skills && (
+            <Typography gutterBottom variant="body2" color="text.secondary">
+              {`Skills: ${item.meta.skills.join(", ")}`}
+            </Typography>
+          )}
         </CardContent>
         <Box sx={{ flexGrow: 1 }} />
         <CardActions
@@ -95,19 +103,27 @@ const CoursePreview = ({ item }: CoursePreviewProps) => {
           }}
         >
           {item.containsLockedLessons && (
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                color: "warning.light",
+              }}
+            >
               <LockIcon />
-              <Typography variant="body1" color="text.secondary">
-                Contains locked lessons
-              </Typography>
+              <Typography variant="body1">Contains locked lessons</Typography>
             </Box>
           )}
           {!item.containsLockedLessons && (
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                color: "success.light",
+              }}
+            >
               <LockOpenIcon />
-              <Typography variant="body1" color="text.secondary">
-                Lessons unlocked
-              </Typography>
+              <Typography variant="body1">Lessons unlocked</Typography>
             </Box>
           )}
           <Rating value={item.rating} readOnly sx={{ alignSelf: "end" }} />

@@ -1,13 +1,12 @@
-import {
-  createBrowserRouter,
-  defer,
-  LoaderFunctionArgs,
-} from "react-router-dom";
+import { createHashRouter, defer, LoaderFunctionArgs } from "react-router-dom";
+
 import { getAll, getById } from "../api/courses.api";
-import CourseItem from "./Course";
-import Courses from "./Courses";
-import ErrorPage from "./ErrorPage";
+
+import Error from "../components/Error";
+
 import Root from "./Root";
+import Courses from "./Courses";
+import Course from "./Course";
 
 const coursesLoader = async () => {
   return defer({
@@ -21,11 +20,11 @@ const courseLoader = async ({ params }: LoaderFunctionArgs) => {
   });
 };
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement: <ErrorPage />,
+    errorElement: <Error />,
     children: [
       {
         path: "",
@@ -34,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "course/:courseId",
-        element: <CourseItem />,
+        element: <Course />,
         loader: courseLoader,
       },
     ],

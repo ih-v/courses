@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
+
 import {
   Container,
   createTheme,
@@ -5,8 +8,6 @@ import {
   ThemeOptions,
   ThemeProvider,
 } from "@mui/material";
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
 
 import { CoursesProvider } from "../../contexts/CoursesContext";
 

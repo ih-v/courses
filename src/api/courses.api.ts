@@ -1,4 +1,3 @@
-import { LoaderFunctionArgs } from "react-router-dom";
 import { ICourse, ICoursePreview } from "../types";
 import $api from ".";
 

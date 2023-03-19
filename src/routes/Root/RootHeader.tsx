@@ -1,7 +1,8 @@
 import { Dispatch } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import SchoolIcon from "@mui/icons-material/School";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import {
@@ -22,6 +23,8 @@ type RootHeaderProps = {
 
 const RootHeader = ({ themeName, setThemeName }: RootHeaderProps) => {
   const navigate = useNavigate();
+  const { courseId } = useParams();
+
   const handleThemeChange = () => {
     setThemeName((prev) => (prev === "light" ? "dark" : "light"));
   };
@@ -31,11 +34,13 @@ const RootHeader = ({ themeName, setThemeName }: RootHeaderProps) => {
         <IconButton
           size="large"
           edge="start"
-          color="inherit"
-          sx={{ mr: 2 }}
+          sx={{
+            mr: 2,
+            backgroundColor: !courseId ? "inherit" : "secondary.light",
+          }}
           onClick={() => navigate("/")}
         >
-          <SchoolIcon />
+          {!courseId ? <SchoolIcon /> : <ArrowBackIcon />}
         </IconButton>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography variant="h6" noWrap component="div">

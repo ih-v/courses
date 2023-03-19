@@ -4,22 +4,9 @@ import noImg from "../../assets/no-img.jpg";
 import loadingImg from "../../assets/loading-white.gif";
 import { Box, Chip, Paper, Typography } from "@mui/material";
 
-import { style } from "../../constants";
-
 import { ICourse } from "../../types";
-
-export const secondsToTime = (e: number): string => {
-  const h = Math.floor(e / 3600)
-      .toString()
-      .padStart(2, "0"),
-    m = Math.floor((e % 3600) / 60)
-      .toString()
-      .padStart(2, "0"),
-    s = Math.floor(e % 60)
-      .toString()
-      .padStart(2, "0");
-  return `${h}:${m}:${s}`;
-};
+import { style } from "../../constants";
+import secondsToTime from "../../utils/secondsToTime";
 
 const CorseDescription = () => {
   const course = useAsyncValue() as ICourse;

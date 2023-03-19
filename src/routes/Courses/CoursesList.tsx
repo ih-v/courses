@@ -1,10 +1,11 @@
-import { Box, Grid } from "@mui/material";
 import { useMemo } from "react";
 import { useAsyncValue } from "react-router-dom";
 import { useCoursesContext } from "../../contexts/CoursesContext";
 
-import { style } from "../../constants";
+import { Box, Grid } from "@mui/material";
+
 import { ICoursePreview } from "../../types";
+import { style } from "../../constants";
 
 import CoursePreview from "./CoursePreview";
 import CoursesPagination from "./CoursesPagination";

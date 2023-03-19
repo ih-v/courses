@@ -5,6 +5,7 @@ import {
   useLayoutEffect,
   VideoHTMLAttributes,
 } from "react";
+
 import Hls, { ErrorData, Events } from "hls.js";
 
 type VideoPlayerProps = {

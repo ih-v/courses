@@ -62,7 +62,7 @@ const CoursesToolbar = () => {
     setState((prev) => ({ ...prev, filterLocked: !prev.filterLocked }));
   };
 
-  const smTop =
+  const top =
     "calc(" +
     theme.spacing(style.MARGIN_PREV) +
     " + " +
@@ -71,10 +71,10 @@ const CoursesToolbar = () => {
 
   return (
     <Paper
-      elevation={6}
+      elevation={16}
       sx={{
         position: "sticky",
-        top: smTop,
+        top,
         width: "100%",
         minWidth: style.CARD_MIN_WIDTH,
         mt: style.MARGIN_PREV,
@@ -91,7 +91,7 @@ const CoursesToolbar = () => {
             alignItems="end"
             justifyContent="space-between"
           >
-            <ImageSearchIcon />
+            <ImageSearchIcon color="primary" />
             <TextField
               label="Search course"
               value={search}
@@ -121,6 +121,7 @@ const CoursesToolbar = () => {
               marks={true}
               size="small"
               valueLabelDisplay="auto"
+              color="secondary"
               sx={{ width: "150px" }}
               onChange={handleRatingChange}
             />
@@ -135,7 +136,13 @@ const CoursesToolbar = () => {
               checked={state.filterLocked}
               size="small"
               onChange={toggleCheckBox}
-              sx={{ p: 0 }}
+              sx={{
+                p: 0,
+                color: "secondary.main",
+                "&.Mui-checked": {
+                  color: "secondary.main",
+                },
+              }}
             />
             <Typography variant="subtitle2" noWrap component="label">
               Filter contained locked lessons
