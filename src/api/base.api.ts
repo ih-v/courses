@@ -2,12 +2,12 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const $api = axios.create({
+const base = axios.create({
   withCredentials: true,
   baseURL: API_URL,
 });
 
-$api.interceptors.request.use((config) => {
+base.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -15,7 +15,7 @@ $api.interceptors.request.use((config) => {
   return config;
 });
 
-$api.interceptors.response.use(
+base.interceptors.response.use(
   (config) => {
     return config;
   },
@@ -35,7 +35,7 @@ $api.interceptors.response.use(
           }
         );
         localStorage.setItem("token", response.data.token);
-        return $api.request(originalRequest);
+        return base.request(originalRequest);
       } catch (e) {
         console.error(e);
       }
@@ -44,4 +44,4 @@ $api.interceptors.response.use(
   }
 );
 
-export default $api;
+export default base;

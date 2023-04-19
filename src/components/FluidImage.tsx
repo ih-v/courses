@@ -6,10 +6,10 @@ const FluidImage = forwardRef<
 >(({ ...props }: ImgHTMLAttributes<HTMLImageElement>, ref) => {
   return (
     <img
-      {...props}
       ref={ref}
-      loading="lazy"
       alt=""
+      {...props}
+      loading="lazy"
       style={{
         width: "100%",
         height: "100%",

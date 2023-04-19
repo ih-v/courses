@@ -62,12 +62,9 @@ const CoursesToolbar = () => {
     setState((prev) => ({ ...prev, filterLocked: !prev.filterLocked }));
   };
 
-  const top =
-    "calc(" +
-    theme.spacing(style.MARGIN_PREV) +
-    " + " +
-    style.ROOT_HEADER_HEIGHT +
-    "px)";
+  const top = `calc(${theme.spacing(style.MARGIN_PREV)} + ${
+    style.ROOT_HEADER_HEIGHT
+  }px)`;
 
   return (
     <Paper

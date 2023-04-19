@@ -40,7 +40,7 @@ const Lesson = ({ selectedLink, item, orderNum, onClick }: LessonProps) => {
             backgroundColor: "primary.light",
           },
         }}
-        onClick={() => handleClick()}
+        onClick={handleClick}
       >
         <ListItemAvatar>
           <Avatar
