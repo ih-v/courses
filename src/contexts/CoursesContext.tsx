@@ -14,8 +14,6 @@ import { style } from "../constants";
 
 import PlayerContainer from "../routes/Course/PlayerContainer";
 
-type StateType = typeof initialState;
-
 export const initialState = {
   videoLink: "",
   videoTitle: "",
@@ -25,12 +23,14 @@ export const initialState = {
   page: 1,
 };
 
-export type CoursesContextType = {
+type StateType = typeof initialState;
+
+type CoursesContextType = {
   state: StateType;
   setState: Dispatch<SetStateAction<StateType>>;
-} | null;
+};
 
-const CoursesContext = createContext<CoursesContextType>(null);
+const CoursesContext = createContext<CoursesContextType | null>(null);
 
 export const CoursesProvider = ({ children }: { children: ReactNode }) => {
   const [state, setState] = useState<StateType>(initialState);

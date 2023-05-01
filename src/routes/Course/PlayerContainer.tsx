@@ -20,6 +20,12 @@ import {
 import FluidImage from "../../components/FluidImage";
 import VideoPlayer from "../../components/VideoPlayer";
 
+type PlayerContainerProps = {
+  link: string;
+  title: string;
+  isDisplayed: boolean;
+};
+
 const enablePIPMode = (VideoElement: HTMLVideoElement) => {
   if (document.pictureInPictureEnabled) {
     VideoElement.requestPictureInPicture();
@@ -36,11 +42,7 @@ const PlayerContainer = ({
   link,
   title,
   isDisplayed,
-}: {
-  link: string;
-  title: string;
-  isDisplayed: boolean;
-}) => {
+}: PlayerContainerProps) => {
   const [status, setStatus] = useState<"video" | "locked" | "error">("video");
   const [speed, setSpeed] = useState(1);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -88,7 +90,7 @@ const PlayerContainer = ({
     } else if (link === "locked") {
       setStatus(() => "locked");
     } else {
-      setStatus("video");
+      setStatus(() => "video");
     }
     if (videoRef.current) {
       videoRef.current.currentTime = Number(localStorage.getItem(link));

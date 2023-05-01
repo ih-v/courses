@@ -12,6 +12,7 @@ import {
 import { ILesson } from "../../types";
 import { SetVideoFunction } from "./LessonsList";
 import secondsToTime from "../../utils/secondsToTime";
+import { memo } from "react";
 
 type LessonProps = {
   selectedLink: string;
@@ -67,4 +68,4 @@ const Lesson = ({ selectedLink, item, orderNum, onClick }: LessonProps) => {
   );
 };
 
-export default Lesson;
+export default memo(Lesson);

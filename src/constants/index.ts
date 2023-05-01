@@ -4,4 +4,4 @@ export const style = {
   MARGIN_PREV: 2,
   VIDEO_MAX_WIDH: 500,
   VIDEO_ASPECT_RATIO: [42, 30],
-};
+} as const;

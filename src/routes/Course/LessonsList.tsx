@@ -39,8 +39,10 @@ const LessonsList = () => {
     [setState]
   );
 
+  const firstLesson = course.lessons[0];
+
   useEffect(() => {
-    const { link, title, status } = course.lessons[0];
+    const { link, title, status } = firstLesson;
     if (!link) {
       setVideo("corrupted", title, 0);
     } else if (status === "locked") {
@@ -48,7 +50,7 @@ const LessonsList = () => {
     } else {
       setVideo(link, title, 0);
     }
-  }, [course.lessons, setVideo]);
+  }, [firstLesson, setVideo]);
 
   const containerPaddings = brlg ? 0 : 48;
   const mdWidth =

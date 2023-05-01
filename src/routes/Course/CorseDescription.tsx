@@ -1,8 +1,8 @@
 import { useAsyncValue } from "react-router-dom";
 
+import { Box, Chip, Paper, Typography } from "@mui/material";
 import noImg from "../../assets/no-img.jpg";
 import loadingImg from "../../assets/loading-white.gif";
-import { Box, Chip, Paper, Typography } from "@mui/material";
 
 import { ICourse } from "../../types";
 import { style } from "../../constants";
