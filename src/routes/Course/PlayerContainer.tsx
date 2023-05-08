@@ -143,6 +143,7 @@ const PlayerContainer = ({
         width: "100%",
         height: "100%",
       }}
+      data-testid="player-container"
     >
       <CardHeader
         title={displayTitle().slice(0, 60) + (title.length >= 60 ? "..." : "")}
@@ -164,8 +165,15 @@ const PlayerContainer = ({
           flexShrink: 1,
         }}
       >
-        {status === "locked" && <FluidImage src={lockedVideo} />}
-        {status === "error" && <FluidImage src={noVideo} />}
+        {status === "locked" && (
+          <FluidImage
+            src={lockedVideo}
+            data-testid="player-container-img-locked"
+          />
+        )}
+        {status === "error" && (
+          <FluidImage src={noVideo} data-testid="player-container-img-error" />
+        )}
         {status === "video" && (
           <VideoPlayer
             ref={videoRef}
@@ -180,6 +188,7 @@ const PlayerContainer = ({
             playsInline={true}
             onTimeUpdate={handleTimeUpdate}
             errorCb={handleError}
+            data-testid="player-container-video"
           />
         )}
       </CardMedia>

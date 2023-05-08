@@ -1,4 +1,9 @@
-import { createHashRouter, defer, LoaderFunctionArgs } from "react-router-dom";
+import {
+  createHashRouter,
+  defer,
+  LoaderFunctionArgs,
+  RouteObject,
+} from "react-router-dom";
 
 import { getAll, getById } from "../api/courses.api";
 
@@ -20,7 +25,7 @@ const courseLoader = async ({ params }: LoaderFunctionArgs) => {
   });
 };
 
-const router = createHashRouter([
+export const routes: RouteObject[] = [
   {
     path: "/",
     element: <Root />,
@@ -38,6 +43,6 @@ const router = createHashRouter([
       },
     ],
   },
-]);
+];
 
-export default router;
+export default createHashRouter(routes);

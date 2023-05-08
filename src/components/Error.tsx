@@ -17,16 +17,17 @@ const Error = () => {
       flexDirection="column"
       gap={2}
       mt={10}
+      data-testid="error-component"
     >
       <Typography variant="h4">Sorry, but someting goes wrong...</Typography>
       {asyncError && (
-        <Typography variant="h6">
+        <Typography variant="h6" data-testid="error-fetching">
           Error!{" "}
           {asyncError.message ?? <span>{JSON.stringify(asyncError)}</span>}
         </Typography>
       )}
       {routerError && (
-        <Typography variant="h6">
+        <Typography variant="h6" data-testid="error-route">
           {routerError.data ?? <span>{JSON.stringify(routerError)}</span>}
         </Typography>
       )}

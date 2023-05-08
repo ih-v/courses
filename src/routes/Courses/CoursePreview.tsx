@@ -59,6 +59,7 @@ const CoursePreview = ({ item }: CoursePreviewProps) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleCardClick}
+      data-testid="course-preview"
     >
       <CardActionArea
         sx={{ display: "flex", flexDirection: "column", height: "100%" }}

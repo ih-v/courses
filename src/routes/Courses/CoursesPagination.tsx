@@ -35,6 +35,7 @@ const CoursesPagination = ({ divider, length }: CoursesPaginationProps) => {
         py: 0.5,
         bgcolor: (theme: Theme) => theme.palette.primary.light,
       }}
+      data-testid="courses-pagination"
     >
       <Pagination
         color="secondary"

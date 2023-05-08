@@ -32,7 +32,7 @@ const Lesson = ({ selectedLink, item, orderNum, onClick }: LessonProps) => {
   };
 
   return (
-    <ListItem alignItems="flex-start">
+    <ListItem alignItems="flex-start" data-testid="course-lesson">
       <ListItemButton
         selected={!corrupted && selectedLink === item.link}
         disabled={locked || corrupted}
@@ -42,6 +42,7 @@ const Lesson = ({ selectedLink, item, orderNum, onClick }: LessonProps) => {
           },
         }}
         onClick={handleClick}
+        data-testid="course-lesson-button"
       >
         <ListItemAvatar>
           <Avatar

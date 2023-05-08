@@ -25,6 +25,7 @@ const CorseDescription = () => {
         p: 2,
         mt: 2,
       }}
+      data-testid="course-description"
     >
       <Box sx={{ display: "flex", gap: 2 }}>
         <Box

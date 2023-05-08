@@ -17,12 +17,14 @@ const Course = () => {
   const { course } = useLoaderData() as CourseItemData;
 
   return (
-    <Suspense fallback={<CourseFallback />}>
-      <Await resolve={course} errorElement={<Error />}>
-        <CorseDescription />
-        <LessonsList />
-      </Await>
-    </Suspense>
+    <div data-testid="course-route">
+      <Suspense fallback={<CourseFallback />}>
+        <Await resolve={course} errorElement={<Error />}>
+          <CorseDescription />
+          <LessonsList />
+        </Await>
+      </Suspense>
+    </div>
   );
 };
 

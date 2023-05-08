@@ -29,7 +29,11 @@ const RootHeader = ({ themeName, setThemeName }: RootHeaderProps) => {
     setThemeName((prev) => (prev === "light" ? "dark" : "light"));
   };
   return (
-    <AppBar component="nav" sx={{ height: style.ROOT_HEADER_HEIGHT }}>
+    <AppBar
+      component="nav"
+      sx={{ height: style.ROOT_HEADER_HEIGHT }}
+      data-testid="root-header"
+    >
       <Toolbar>
         <IconButton
           size="large"
@@ -58,7 +62,12 @@ const RootHeader = ({ themeName, setThemeName }: RootHeaderProps) => {
               : "Toggle to light theme"
           }
         >
-          <IconButton edge="end" onClick={handleThemeChange} color="inherit">
+          <IconButton
+            edge="end"
+            onClick={handleThemeChange}
+            color="inherit"
+            data-testid="root-header-theme-button"
+          >
             {themeName === "light" && <DarkModeIcon />}
             {themeName === "dark" && <LightModeIcon />}
           </IconButton>

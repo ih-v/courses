@@ -16,14 +16,14 @@ type CoursesListData = {
 const Courses = () => {
   const { courses } = useLoaderData() as CoursesListData;
   return (
-    <>
+    <div data-testid="courses-route">
       <CoursesToolbar />
       <Suspense fallback={<CoursesFallback />}>
         <Await resolve={courses} errorElement={<Error />}>
           <CoursesList />
         </Await>
       </Suspense>
-    </>
+    </div>
   );
 };
 

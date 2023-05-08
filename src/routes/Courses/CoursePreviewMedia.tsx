@@ -10,7 +10,7 @@ import FluidImage from "../../components/FluidImage";
 
 type CoursePreviewMediaProps = {
   status: CoursePreviewState;
-  videoLink: string | undefined;
+  videoLink?: string;
   imageLink: string;
   onSuccess: () => void;
   onError: () => void;
@@ -56,16 +56,22 @@ const CoursePreviewMedia = ({
           playsInline={true}
           attachCb={onSuccess}
           errorCb={onError}
+          data-testid="course-preview-video"
         />
       )}
-      {status === "pending" && <FluidImage src={loadingImg} />}
-      {status === "error" && <FluidImage src={noVideo} />}
+      {status === "pending" && (
+        <FluidImage src={loadingImg} data-testid="course-preview-img-pending" />
+      )}
+      {status === "error" && (
+        <FluidImage src={noVideo} data-testid="course-preview-img-error" />
+      )}
       {status === "idle" && (
         <FluidImage
           src={imageLink}
           onError={(e) => {
             e.currentTarget.src = noImg;
           }}
+          data-testid="course-preview-img-idle"
         />
       )}
     </>

@@ -27,6 +27,15 @@ export interface ICourse {
   containsLockedLessons: boolean;
 }
 
+export interface ICourseResponse extends Omit<ICourse, "launchDate"> {
+  launchDate: string;
+}
+
 export interface ICoursePreview extends Omit<ICourse, "lessons"> {
   lessonsCount: number;
+}
+
+export interface ICoursePreviewResponse
+  extends Omit<ICoursePreview, "launchDate"> {
+  launchDate: string;
 }

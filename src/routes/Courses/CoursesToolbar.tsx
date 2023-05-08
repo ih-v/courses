@@ -79,6 +79,7 @@ const CoursesToolbar = () => {
         py: 1,
         zIndex: 2,
       }}
+      data-testid="courses-toolbar"
     >
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -97,6 +98,7 @@ const CoursesToolbar = () => {
               fullWidth={true}
               autoFocus={true}
               onChange={handleSearchChange}
+              inputProps={{ "data-testid": "search-input" }}
             />
             <Button
               size="small"

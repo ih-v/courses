@@ -75,6 +75,7 @@ const LessonsList = () => {
         overflowY: { md: "scroll" },
         mt: style.MARGIN_PREV,
       }}
+      data-testid="lessons-list"
     >
       <List
         subheader={

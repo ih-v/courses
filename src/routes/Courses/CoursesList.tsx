@@ -44,7 +44,12 @@ const CoursesList = () => {
   }, [filteredCourses, state.page]);
 
   return (
-    <Box minWidth={style.CARD_MIN_WIDTH} mt={style.MARGIN_PREV} pb={7}>
+    <Box
+      minWidth={style.CARD_MIN_WIDTH}
+      mt={style.MARGIN_PREV}
+      pb={7}
+      data-testid="courses-list"
+    >
       <Grid container spacing={2}>
         {pageCourses.map((course) => {
           return (

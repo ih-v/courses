@@ -39,6 +39,7 @@ const CoursesFallback = () => {
         flexWrap: "wrap",
         mt: style.MARGIN_PREV,
       }}
+      data-testid="courses-fallback"
     >
       <FallbackElement />
       <FallbackElement />
