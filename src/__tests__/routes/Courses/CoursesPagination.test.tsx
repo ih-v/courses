@@ -2,7 +2,7 @@ import { describe, test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 
 import { CoursesProvider } from "../../../contexts/CoursesContext";
-import CoursesPagination from "../../../routes/Courses/CoursesPagination";
+import CoursesPagination from "../../../routes/Courses/CoursesList/CoursesListPagination";
 
 describe("CoursesPagination component testing", () => {
   test("Check pages count: must be 5 buttons (3 pages)", () => {

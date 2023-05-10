@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import LockIcon from "@mui/icons-material/Lock";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
 import {
@@ -15,18 +14,18 @@ import {
   Typography,
 } from "@mui/material";
 
-import { ICoursePreview } from "../../types";
+import { ICoursesListItem } from "../../../types";
 
-import CoursePreviewMedia from "./CoursePreviewMedia";
+import CoursesListItemMedia from "./CoursesListItemMedia";
 
-type CoursePreviewProps = {
-  item: ICoursePreview;
+type CoursesListItemProps = {
+  item: ICoursesListItem;
 };
 
-export type CoursePreviewState = "idle" | "pending" | "success" | "error";
+export type CoursesListItemState = "idle" | "pending" | "success" | "error";
 
-const CoursePreview = ({ item }: CoursePreviewProps) => {
-  const [status, setStatus] = useState<CoursePreviewState>("idle");
+const CoursesListItem = ({ item }: CoursesListItemProps) => {
+  const [status, setStatus] = useState<CoursesListItemState>("idle");
   const navigate = useNavigate();
 
   const handleSuccess = useCallback(() => {
@@ -59,7 +58,7 @@ const CoursePreview = ({ item }: CoursePreviewProps) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleCardClick}
-      data-testid="course-preview"
+      data-testid="courses-list-Item"
     >
       <CardActionArea
         sx={{ display: "flex", flexDirection: "column", height: "100%" }}
@@ -76,7 +75,7 @@ const CoursePreview = ({ item }: CoursePreviewProps) => {
             height: { sx: "210px", md: "220px", lg: "230px" },
           }}
         >
-          <CoursePreviewMedia
+          <CoursesListItemMedia
             status={status}
             imageLink={item.previewImageLink + "/cover.webp"}
             videoLink={item.meta.courseVideoPreview?.link}
@@ -134,4 +133,4 @@ const CoursePreview = ({ item }: CoursePreviewProps) => {
   );
 };
 
-export default CoursePreview;
+export default CoursesListItem;

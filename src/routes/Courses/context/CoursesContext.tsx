@@ -7,12 +7,11 @@ import {
   useState,
 } from "react";
 import { useParams } from "react-router-dom";
-
 import { Box, useTheme } from "@mui/material";
 
-import { style } from "../constants";
+import { style } from "../../../constants";
 
-import PlayerContainer from "../routes/Course/PlayerContainer";
+import CoursesContextPlayer from "./CoursesContextPlayer";
 
 export const initialState = {
   videoLink: "",
@@ -61,7 +60,7 @@ export const CoursesProvider = ({ children }: { children: ReactNode }) => {
           zIndex: 2,
         }}
       >
-        <PlayerContainer
+        <CoursesContextPlayer
           link={state.videoLink}
           title={state.videoTitle}
           isDisplayed={!!courseId}

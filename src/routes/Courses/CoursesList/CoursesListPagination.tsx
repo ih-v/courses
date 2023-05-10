@@ -1,14 +1,17 @@
 import { useEffect } from "react";
-import { useCoursesContext } from "../../contexts/CoursesContext";
-
 import { AppBar, Pagination, Theme } from "@mui/material";
 
-type CoursesPaginationProps = {
+import { useCoursesContext } from "../context/CoursesContext";
+
+type CoursesListPaginationProps = {
   divider: number;
   length: number;
 };
 
-const CoursesPagination = ({ divider, length }: CoursesPaginationProps) => {
+const CoursesListPagination = ({
+  divider,
+  length,
+}: CoursesListPaginationProps) => {
   const { state, setState } = useCoursesContext();
 
   useEffect(() => {
@@ -35,7 +38,7 @@ const CoursesPagination = ({ divider, length }: CoursesPaginationProps) => {
         py: 0.5,
         bgcolor: (theme: Theme) => theme.palette.primary.light,
       }}
-      data-testid="courses-pagination"
+      data-testid="courses-list-pagination"
     >
       <Pagination
         color="secondary"
@@ -47,4 +50,4 @@ const CoursesPagination = ({ divider, length }: CoursesPaginationProps) => {
   );
 };
 
-export default CoursesPagination;
+export default CoursesListPagination;

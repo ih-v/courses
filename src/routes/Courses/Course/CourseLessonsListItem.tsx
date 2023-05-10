@@ -1,3 +1,4 @@
+import { memo } from "react";
 import LockIcon from "@mui/icons-material/Lock";
 import BrokenImageIcon from "@mui/icons-material/BrokenImage";
 import {
@@ -9,19 +10,24 @@ import {
   ListItemText,
 } from "@mui/material";
 
-import { ILesson } from "../../types";
-import { SetVideoFunction } from "./LessonsList";
-import secondsToTime from "../../utils/secondsToTime";
-import { memo } from "react";
+import secondsToTime from "../../../utils/secondsToTime";
+import { ICourseLessonsListItem } from "../../../types";
 
-type LessonProps = {
+import { SetVideoFunction } from "./CourseLessonsList";
+
+type CourseLessonsListItemProps = {
   selectedLink: string;
-  item: ILesson;
+  item: ICourseLessonsListItem;
   orderNum: number;
   onClick: SetVideoFunction;
 };
 
-const Lesson = ({ selectedLink, item, orderNum, onClick }: LessonProps) => {
+const CourseLessonsListItem = ({
+  selectedLink,
+  item,
+  orderNum,
+  onClick,
+}: CourseLessonsListItemProps) => {
   const corrupted = !item.link;
   const locked = item.status === "locked";
 
@@ -32,7 +38,7 @@ const Lesson = ({ selectedLink, item, orderNum, onClick }: LessonProps) => {
   };
 
   return (
-    <ListItem alignItems="flex-start" data-testid="course-lesson">
+    <ListItem alignItems="flex-start" data-testid="course-lessons-list-item">
       <ListItemButton
         selected={!corrupted && selectedLink === item.link}
         disabled={locked || corrupted}
@@ -42,7 +48,7 @@ const Lesson = ({ selectedLink, item, orderNum, onClick }: LessonProps) => {
           },
         }}
         onClick={handleClick}
-        data-testid="course-lesson-button"
+        data-testid="course-lessons-list-item-button"
       >
         <ListItemAvatar>
           <Avatar
@@ -69,4 +75,4 @@ const Lesson = ({ selectedLink, item, orderNum, onClick }: LessonProps) => {
   );
 };
 
-export default memo(Lesson);
+export default memo(CourseLessonsListItem);

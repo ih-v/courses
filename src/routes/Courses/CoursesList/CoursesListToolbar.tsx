@@ -1,10 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { initialState, useCoursesContext } from "../../contexts/CoursesContext";
-import useDebounce from "../../hooks/useDebounce";
-
 import FilterListOffIcon from "@mui/icons-material/FilterListOff";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
-
 import {
   Button,
   Checkbox,
@@ -17,9 +13,12 @@ import {
   useTheme,
 } from "@mui/material";
 
-import { style } from "../../constants";
+import useDebounce from "../../../hooks/useDebounce";
+import { style } from "../../../constants";
 
-const CoursesToolbar = () => {
+import { initialState, useCoursesContext } from "../context/CoursesContext";
+
+const CoursesListToolbar = () => {
   const { state, setState } = useCoursesContext();
   const [search, setSearch] = useState(state.search);
   const [rating, setRating] = useState<number>(state.rating);
@@ -79,7 +78,7 @@ const CoursesToolbar = () => {
         py: 1,
         zIndex: 2,
       }}
-      data-testid="courses-toolbar"
+      data-testid="courses-list-toolbar"
     >
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -98,7 +97,7 @@ const CoursesToolbar = () => {
               fullWidth={true}
               autoFocus={true}
               onChange={handleSearchChange}
-              inputProps={{ "data-testid": "search-input" }}
+              inputProps={{ "data-testid": "courses-list-toolbar-search" }}
             />
             <Button
               size="small"
@@ -153,4 +152,4 @@ const CoursesToolbar = () => {
   );
 };
 
-export default CoursesToolbar;
+export default CoursesListToolbar;

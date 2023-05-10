@@ -1,9 +1,26 @@
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, vi, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import CoursePreviewMedia from "../../../routes/Courses/CoursePreviewMedia";
+import { VideoPlayerMock } from "../../mocks";
+import CoursePreviewMedia from "../../../routes/Courses/CoursesList/CoursesListItemMedia";
+
+vi.mock("../../../components/VideoPlayer", () => {
+  return {
+    default: VideoPlayerMock,
+  };
+});
+
+vi.spyOn(HTMLMediaElement.prototype, "play").mockImplementation(() =>
+  Promise.resolve()
+);
+
+vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => {});
 
 describe("CoursePreviewMedia component testing", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   test("Rendering with state: 'idle' - show course image", () => {
     render(
       <CoursePreviewMedia

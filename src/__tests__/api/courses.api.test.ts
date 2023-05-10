@@ -1,7 +1,8 @@
-import { describe, test, expect, vi, MockedFunction, afterEach } from "vitest";
+import { describe, test, expect, vi, afterEach, Mock } from "vitest";
 
 import baseApi from "../../api/base.api";
 import { getAll, getById } from "../../api/courses.api";
+
 import {
   FAKE_ALL_COURSES_DATA,
   FAKE_ALL_COURSES_SERIALIZED_DATA,
@@ -9,11 +10,13 @@ import {
   FAKE_COURSE_SERIALIZED_DATA,
 } from "../fakeData";
 
+const baseApiGet = vi.fn();
+
 vi.mock("../../api/base.api", () => {
   return {
     default: {
       post: vi.fn(),
-      get: vi.fn(),
+      get: baseApiGet,
       delete: vi.fn(),
       put: vi.fn(),
       create: vi.fn().mockReturnThis(),
@@ -31,15 +34,15 @@ vi.mock("../../api/base.api", () => {
   };
 });
 
-describe("Testing courses api", () => {
+describe("Courses api testing", () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
 
   test("getAll", async () => {
-    (baseApi.get as MockedFunction<typeof baseApi.get>).mockResolvedValue(
-      Promise.resolve({ data: { courses: FAKE_ALL_COURSES_DATA } })
-    );
+    (baseApi.get as Mock).mockResolvedValue({
+      data: { courses: FAKE_ALL_COURSES_DATA },
+    });
 
     const courses = await getAll();
 
@@ -49,9 +52,7 @@ describe("Testing courses api", () => {
   });
 
   test("getById", async () => {
-    (baseApi.get as MockedFunction<typeof baseApi.get>).mockResolvedValue(
-      Promise.resolve({ data: FAKE_COURSE_DATA })
-    );
+    (baseApi.get as Mock).mockResolvedValue({ data: FAKE_COURSE_DATA });
 
     const courses = await getById(FAKE_COURSE_DATA.id);
 

@@ -6,14 +6,14 @@ import {
 } from "react-router-dom";
 
 import { getAll, getById } from "../api/courses.api";
-
 import Error from "../components/Error";
 
-import Root from "./Root";
+import RootLayout from "./RootLayout";
 import Courses from "./Courses";
-import Course from "./Course";
+import CoursesList from "./Courses/CoursesList";
+import Course from "./Courses/Course";
 
-const coursesLoader = async () => {
+const coursesListLoader = async () => {
   return defer({
     courses: getAll(),
   });
@@ -28,18 +28,25 @@ const courseLoader = async ({ params }: LoaderFunctionArgs) => {
 export const routes: RouteObject[] = [
   {
     path: "/",
-    element: <Root />,
+    element: <RootLayout />,
     errorElement: <Error />,
     children: [
       {
         path: "",
         element: <Courses />,
-        loader: coursesLoader,
-      },
-      {
-        path: "course/:courseId",
-        element: <Course />,
-        loader: courseLoader,
+        errorElement: <Error />,
+        children: [
+          {
+            path: "",
+            element: <CoursesList />,
+            loader: coursesListLoader,
+          },
+          {
+            path: "course/:courseId",
+            element: <Course />,
+            loader: courseLoader,
+          },
+        ],
       },
     ],
   },

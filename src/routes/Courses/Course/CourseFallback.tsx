@@ -1,6 +1,6 @@
 import { Skeleton, Stack } from "@mui/material";
 
-import { style } from "../../constants";
+import { style } from "../../../constants";
 
 const CourseFallback = () => {
   return (

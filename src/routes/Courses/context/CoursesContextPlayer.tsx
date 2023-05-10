@@ -1,7 +1,4 @@
 import { memo, useCallback, useEffect, useRef, useState } from "react";
-
-import noVideo from "../../assets/no-video.webp";
-import lockedVideo from "../../assets/locked.jpg";
 import SpeedIcon from "@mui/icons-material/Speed";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
@@ -17,10 +14,12 @@ import {
   Typography,
 } from "@mui/material";
 
-import FluidImage from "../../components/FluidImage";
-import VideoPlayer from "../../components/VideoPlayer";
+import FluidImage from "../../../components/FluidImage";
+import VideoPlayer from "../../../components/VideoPlayer";
+import noVideo from "../../../assets/no-video.webp";
+import lockedVideo from "../../../assets/locked.jpg";
 
-type PlayerContainerProps = {
+type CoursesContextPlayerProps = {
   link: string;
   title: string;
   isDisplayed: boolean;
@@ -38,11 +37,11 @@ const disablePIPmode = () => {
   }
 };
 
-const PlayerContainer = ({
+const CoursesContextPlayer = ({
   link,
   title,
   isDisplayed,
-}: PlayerContainerProps) => {
+}: CoursesContextPlayerProps) => {
   const [status, setStatus] = useState<"video" | "locked" | "error">("video");
   const [speed, setSpeed] = useState(1);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -143,7 +142,7 @@ const PlayerContainer = ({
         width: "100%",
         height: "100%",
       }}
-      data-testid="player-container"
+      data-testid="courses-context-player"
     >
       <CardHeader
         title={displayTitle().slice(0, 60) + (title.length >= 60 ? "..." : "")}
@@ -168,11 +167,14 @@ const PlayerContainer = ({
         {status === "locked" && (
           <FluidImage
             src={lockedVideo}
-            data-testid="player-container-img-locked"
+            data-testid="courses-context-player-img-locked"
           />
         )}
         {status === "error" && (
-          <FluidImage src={noVideo} data-testid="player-container-img-error" />
+          <FluidImage
+            src={noVideo}
+            data-testid="courses-context-player-img-error"
+          />
         )}
         {status === "video" && (
           <VideoPlayer
@@ -188,7 +190,7 @@ const PlayerContainer = ({
             playsInline={true}
             onTimeUpdate={handleTimeUpdate}
             errorCb={handleError}
-            data-testid="player-container-video"
+            data-testid="courses-context-player-video"
           />
         )}
       </CardMedia>
@@ -230,4 +232,4 @@ const PlayerContainer = ({
   );
 };
 
-export default memo(PlayerContainer);
+export default memo(CoursesContextPlayer);

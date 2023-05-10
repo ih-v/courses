@@ -1,14 +1,10 @@
-import {
-  ICourse,
-  ICoursePreview,
-  ICoursePreviewResponse,
-  ICourseResponse,
-} from "../types";
+import { ICourse, ICourseResponse, ICoursesListItemResponse } from "../types";
 import serializateLaunchDate from "../utils/serializateLaunchDate";
+
 import baseApi from "./base.api";
 
-export const getAll = async (): Promise<ICoursePreview[]> => {
-  const result: { data: { courses: ICoursePreviewResponse[] } } =
+export const getAll = async (): Promise<ICoursesListItemResponse[]> => {
+  const result: { data: { courses: ICoursesListItemResponse[] } } =
     await baseApi.get("/core/preview-courses");
   return result.data.courses.map((item) => serializateLaunchDate(item));
 };

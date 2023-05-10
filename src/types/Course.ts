@@ -1,5 +1,3 @@
-import { ILesson } from "./Lesson";
-
 export interface ICourseVideoPreview {
   link: string;
   duration: number;
@@ -10,6 +8,18 @@ export interface ICourseMeta {
   slug: string;
   skills?: string[];
   courseVideoPreview?: ICourseVideoPreview;
+}
+
+export interface ICourseLessonsListItem {
+  id: string;
+  title: string;
+  duration: number;
+  order: number;
+  type: string;
+  status: "unlocked" | "locked";
+  link?: string;
+  previewImageLink: string;
+  meta: { difficulty?: string } | null;
 }
 
 export interface ICourse {
@@ -23,19 +33,10 @@ export interface ICourse {
   previewImageLink: string;
   rating: number;
   meta: ICourseMeta;
-  lessons: ILesson[];
+  lessons: ICourseLessonsListItem[];
   containsLockedLessons: boolean;
 }
 
 export interface ICourseResponse extends Omit<ICourse, "launchDate"> {
-  launchDate: string;
-}
-
-export interface ICoursePreview extends Omit<ICourse, "lessons"> {
-  lessonsCount: number;
-}
-
-export interface ICoursePreviewResponse
-  extends Omit<ICoursePreview, "launchDate"> {
   launchDate: string;
 }

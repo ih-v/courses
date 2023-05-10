@@ -1,6 +1,4 @@
-import { Dispatch } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
 import SchoolIcon from "@mui/icons-material/School";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -16,23 +14,23 @@ import {
 
 import { style } from "../../constants";
 
-type RootHeaderProps = {
+type RootLayoutHeaderProps = {
   themeName: string;
-  setThemeName: Dispatch<React.SetStateAction<"light" | "dark">>;
+  toggleTheme: () => void;
 };
 
-const RootHeader = ({ themeName, setThemeName }: RootHeaderProps) => {
+const RootLayoutHeader = ({
+  themeName,
+  toggleTheme,
+}: RootLayoutHeaderProps) => {
   const navigate = useNavigate();
   const { courseId } = useParams();
 
-  const handleThemeChange = () => {
-    setThemeName((prev) => (prev === "light" ? "dark" : "light"));
-  };
   return (
     <AppBar
       component="nav"
       sx={{ height: style.ROOT_HEADER_HEIGHT }}
-      data-testid="root-header"
+      data-testid="root-layout-header"
     >
       <Toolbar>
         <IconButton
@@ -43,8 +41,13 @@ const RootHeader = ({ themeName, setThemeName }: RootHeaderProps) => {
             backgroundColor: !courseId ? "inherit" : "secondary.light",
           }}
           onClick={() => navigate("/")}
+          data-testid="root-layout-header-navigate-button"
         >
-          {!courseId ? <SchoolIcon /> : <ArrowBackIcon />}
+          {!courseId ? (
+            <SchoolIcon data-testid="root-layout-header-home-icon" />
+          ) : (
+            <ArrowBackIcon data-testid="root-layout-header-back-icon" />
+          )}
         </IconButton>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <Typography variant="h6" noWrap component="div">
@@ -64,12 +67,16 @@ const RootHeader = ({ themeName, setThemeName }: RootHeaderProps) => {
         >
           <IconButton
             edge="end"
-            onClick={handleThemeChange}
+            onClick={toggleTheme}
             color="inherit"
-            data-testid="root-header-theme-button"
+            data-testid="root-layout-header-theme-button"
           >
-            {themeName === "light" && <DarkModeIcon />}
-            {themeName === "dark" && <LightModeIcon />}
+            {themeName === "light" && (
+              <DarkModeIcon data-testid="root-layout-header-light-theme-icon" />
+            )}
+            {themeName === "dark" && (
+              <LightModeIcon data-testid="root-layout-header-dark-theme-icon" />
+            )}
           </IconButton>
         </Tooltip>
       </Toolbar>
@@ -77,4 +84,4 @@ const RootHeader = ({ themeName, setThemeName }: RootHeaderProps) => {
   );
 };
 
-export default RootHeader;
+export default RootLayoutHeader;

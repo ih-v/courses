@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { CoursesProvider } from "../../../contexts/CoursesContext";
-import CoursesToolbar from "../../../routes/Courses/CoursesToolbar";
+import CoursesToolbar from "../../../routes/Courses/CoursesList/CoursesListToolbar";
 
 describe("CoursesToolbar component testing", () => {
   test("Should be rendered", async () => {

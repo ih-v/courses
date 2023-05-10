@@ -1,28 +1,28 @@
 import { useEffect, useRef } from "react";
 
-import noImg from "../../assets/no-img.jpg";
-import noVideo from "../../assets/no-video.webp";
-import loadingImg from "../../assets/loading-white.gif";
+import noImg from "../../../assets/no-img.jpg";
+import noVideoImg from "../../../assets/no-video.webp";
+import loadingImg from "../../../assets/loading-white.gif";
+import VideoPlayer from "../../../components/VideoPlayer";
+import FluidImage from "../../../components/FluidImage";
 
-import VideoPlayer from "../../components/VideoPlayer";
-import { CoursePreviewState } from "./CoursePreview";
-import FluidImage from "../../components/FluidImage";
+import { CoursesListItemState } from "./CoursesListItem";
 
-type CoursePreviewMediaProps = {
-  status: CoursePreviewState;
+type CoursesListItemMediaProps = {
+  status: CoursesListItemState;
   videoLink?: string;
   imageLink: string;
   onSuccess: () => void;
   onError: () => void;
 };
 
-const CoursePreviewMedia = ({
+const CoursesListItemMedia = ({
   status,
   videoLink,
   imageLink,
   onSuccess,
   onError,
-}: CoursePreviewMediaProps) => {
+}: CoursesListItemMediaProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -56,14 +56,20 @@ const CoursePreviewMedia = ({
           playsInline={true}
           attachCb={onSuccess}
           errorCb={onError}
-          data-testid="course-preview-video"
+          data-testid="courses-list-item-media-video"
         />
       )}
       {status === "pending" && (
-        <FluidImage src={loadingImg} data-testid="course-preview-img-pending" />
+        <FluidImage
+          src={loadingImg}
+          data-testid="courses-list-item-media-img-pending"
+        />
       )}
       {status === "error" && (
-        <FluidImage src={noVideo} data-testid="course-preview-img-error" />
+        <FluidImage
+          src={noVideoImg}
+          data-testid="courses-list-item-media-img-error"
+        />
       )}
       {status === "idle" && (
         <FluidImage
@@ -71,11 +77,11 @@ const CoursePreviewMedia = ({
           onError={(e) => {
             e.currentTarget.src = noImg;
           }}
-          data-testid="course-preview-img-idle"
+          data-testid="courses-list-item-media-img-idle"
         />
       )}
     </>
   );
 };
 
-export default CoursePreviewMedia;
+export default CoursesListItemMedia;

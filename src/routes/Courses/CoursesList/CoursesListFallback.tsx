@@ -1,6 +1,6 @@
 import { Box, Skeleton, Stack } from "@mui/material";
 
-import { style } from "../../constants";
+import { style } from "../../../constants";
 
 const FallbackElement = () => {
   return (
@@ -27,7 +27,7 @@ const FallbackElement = () => {
   );
 };
 
-const CoursesFallback = () => {
+const CoursesListFallback = () => {
   return (
     <Box
       sx={{
@@ -39,7 +39,7 @@ const CoursesFallback = () => {
         flexWrap: "wrap",
         mt: style.MARGIN_PREV,
       }}
-      data-testid="courses-fallback"
+      data-testid="courses-list-fallback"
     >
       <FallbackElement />
       <FallbackElement />
@@ -47,4 +47,4 @@ const CoursesFallback = () => {
   );
 };
 
-export default CoursesFallback;
+export default CoursesListFallback;

@@ -1,7 +1,4 @@
 import React, { useCallback, useEffect } from "react";
-import { useAsyncValue } from "react-router-dom";
-import { useCoursesContext } from "../../contexts/CoursesContext";
-
 import {
   Divider,
   List,
@@ -11,11 +8,14 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { useAsyncValue } from "react-router-dom";
 
-import { ICourse } from "../../types";
-import { style } from "../../constants";
+import { useCoursesContext } from "../context/CoursesContext";
 
-import Lesson from "./Lesson";
+import { style } from "../../../constants";
+import { ICourse } from "../../../types";
+
+import CourseLessonsListItem from "./CourseLessonsListItem";
 
 export type SetVideoFunction = (
   link: string,
@@ -23,7 +23,7 @@ export type SetVideoFunction = (
   orderNum: number
 ) => void;
 
-const LessonsList = () => {
+const CourseLessonsList = () => {
   const course = useAsyncValue() as ICourse;
   const { state, setState } = useCoursesContext();
   const brlg = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
@@ -75,7 +75,7 @@ const LessonsList = () => {
         overflowY: { md: "scroll" },
         mt: style.MARGIN_PREV,
       }}
-      data-testid="lessons-list"
+      data-testid="course-lessons-list"
     >
       <List
         subheader={
@@ -91,7 +91,7 @@ const LessonsList = () => {
         {course.lessons.map((item, i, items) => {
           return (
             <React.Fragment key={item.id}>
-              <Lesson
+              <CourseLessonsListItem
                 key={item.id}
                 selectedLink={state.videoLink}
                 item={item}
@@ -109,4 +109,4 @@ const LessonsList = () => {
   );
 };
 
-export default LessonsList;
+export default CourseLessonsList;

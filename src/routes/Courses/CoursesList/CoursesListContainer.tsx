@@ -1,19 +1,19 @@
 import { useMemo } from "react";
 import { useAsyncValue } from "react-router-dom";
-import { useCoursesContext } from "../../contexts/CoursesContext";
-
 import { Box, Grid } from "@mui/material";
 
-import { ICoursePreview } from "../../types";
-import { style } from "../../constants";
+import { ICoursesListItem } from "../../../types";
+import { style } from "../../../constants";
 
-import CoursePreview from "./CoursePreview";
-import CoursesPagination from "./CoursesPagination";
+import { useCoursesContext } from "../context/CoursesContext";
+
+import CoursesListItem from "./CoursesListItem";
+import CoursesPagination from "./CoursesListPagination";
 
 const paginateDivider = 10;
 
-const CoursesList = () => {
-  const courses = useAsyncValue() as ICoursePreview[];
+const CoursesListContainer = () => {
+  const courses = useAsyncValue() as ICoursesListItem[];
   const { state } = useCoursesContext();
 
   const filteredCourses = useMemo(() => {
@@ -48,13 +48,13 @@ const CoursesList = () => {
       minWidth={style.CARD_MIN_WIDTH}
       mt={style.MARGIN_PREV}
       pb={7}
-      data-testid="courses-list"
+      data-testid="courses-list-container"
     >
       <Grid container spacing={2}>
         {pageCourses.map((course) => {
           return (
             <Grid key={course.id} item xs={12} md={6}>
-              <CoursePreview item={course} />
+              <CoursesListItem item={course} />
             </Grid>
           );
         })}
@@ -67,4 +67,4 @@ const CoursesList = () => {
   );
 };
 
-export default CoursesList;
+export default CoursesListContainer;

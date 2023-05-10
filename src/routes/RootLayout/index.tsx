@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-
 import {
   Container,
   createTheme,
@@ -9,10 +8,8 @@ import {
   ThemeProvider,
 } from "@mui/material";
 
-import { CoursesProvider } from "../../contexts/CoursesContext";
-
-import RootHeader from "./RootHeader";
-import RootMain from "./RootMain";
+import RootHeader from "./RootLayoutHeader";
+import RootMain from "./RootLayoutContainer";
 
 const lightThemeOptions: ThemeOptions = {
   palette: {
@@ -50,8 +47,12 @@ const darkThemeOptions: ThemeOptions = {
   },
 };
 
-export default function Root() {
+const RootLayout = () => {
   const [themeName, setThemeName] = useState<"light" | "dark">("light");
+
+  const handleToggleTheme = () => {
+    setThemeName((prev) => (prev === "light" ? "dark" : "light"));
+  };
 
   const themeOptions =
     themeName === "light" ? lightThemeOptions : darkThemeOptions;
@@ -61,13 +62,13 @@ export default function Root() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container fixed>
-        <RootHeader themeName={themeName} setThemeName={setThemeName} />
+        <RootHeader themeName={themeName} toggleTheme={handleToggleTheme} />
         <RootMain>
-          <CoursesProvider>
-            <Outlet />
-          </CoursesProvider>
+          <Outlet />
         </RootMain>
       </Container>
     </ThemeProvider>
   );
-}
+};
+
+export default RootLayout;

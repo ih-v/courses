@@ -1,12 +1,11 @@
 import { useAsyncValue } from "react-router-dom";
-
 import { Box, Chip, Paper, Typography } from "@mui/material";
-import noImg from "../../assets/no-img.jpg";
-import loadingImg from "../../assets/loading-white.gif";
 
-import { ICourse } from "../../types";
-import { style } from "../../constants";
-import secondsToTime from "../../utils/secondsToTime";
+import secondsToTime from "../../../utils/secondsToTime";
+import { style } from "../../../constants";
+import { ICourse } from "../../../types";
+import noImg from "../../../assets/no-img.jpg";
+import loadingImg from "../../../assets/loading-white.gif";
 
 const CorseDescription = () => {
   const course = useAsyncValue() as ICourse;
