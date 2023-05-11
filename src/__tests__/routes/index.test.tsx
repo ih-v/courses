@@ -6,8 +6,8 @@ import {
   FAKE_ALL_COURSES_SERIALIZED_DATA as coursesData,
   FAKE_COURSE_SERIALIZED_DATA as courseData,
   FAKE_ERROR_DATA as errorData,
-} from "../fakeData";
-import { renderRoute } from "../routingTools";
+} from "../__fake__/themeOptions";
+import { renderRoute } from "../__tools__/renderRoute";
 
 vi.mock("../../api/courses.api", () => {
   return {

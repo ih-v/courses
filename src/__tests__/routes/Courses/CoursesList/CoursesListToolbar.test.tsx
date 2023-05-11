@@ -2,8 +2,8 @@ import { describe, test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { CoursesProvider } from "../../../contexts/CoursesContext";
-import CoursesToolbar from "../../../routes/Courses/CoursesList/CoursesListToolbar";
+import { CoursesProvider } from "../../../../routes/Courses/context/CoursesContext";
+import CoursesToolbar from "../../../../routes/Courses/CoursesList/CoursesListToolbar";
 
 describe("CoursesToolbar component testing", () => {
   test("Should be rendered", async () => {
@@ -14,6 +14,7 @@ describe("CoursesToolbar component testing", () => {
         <CoursesToolbar />
       </CoursesProvider>
     );
+
     expect(screen.getByTestId("courses-toolbar")).toBeInTheDocument();
 
     const input = screen.getByTestId("search-input") as HTMLInputElement;

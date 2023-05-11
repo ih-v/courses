@@ -8,7 +8,7 @@ import {
   FAKE_ALL_COURSES_SERIALIZED_DATA,
   FAKE_COURSE_DATA,
   FAKE_COURSE_SERIALIZED_DATA,
-} from "../fakeData";
+} from "../__fake__/themeOptions";
 
 const baseApiGet = vi.fn();
 

@@ -1,8 +1,8 @@
 import { describe, test, expect, vi, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import { VideoPlayerMock } from "../../mocks";
-import CoursePreviewMedia from "../../../routes/Courses/CoursesList/CoursesListItemMedia";
+import { VideoPlayerMock } from "../../../__mocks__/VideoPlayerMock";
+import CoursePreviewMedia from "../../../../routes/Courses/CoursesList/CoursesListItemMedia";
 
 vi.mock("../../../components/VideoPlayer", () => {
   return {

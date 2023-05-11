@@ -3,9 +3,9 @@ import { describe, test, expect, vi, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { ICoursePreview } from "../../../types";
-import CoursePreview from "../../../routes/Courses/CoursesList/CoursesListItem";
-import { FAKE_ALL_COURSES_SERIALIZED_DATA as coursesData } from "../../fakeData";
+import { ICoursePreview } from "../../../../types";
+import CoursePreview from "../../../../routes/Courses/CoursesList/CoursesListItem";
+import { FAKE_ALL_COURSES_SERIALIZED_DATA as coursesData } from "../../../__fake__/themeOptions";
 
 const mockedUseNavigate = vi.fn();
 

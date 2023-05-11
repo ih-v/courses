@@ -30,17 +30,18 @@ const CourseLessonsListItem = ({
 }: CourseLessonsListItemProps) => {
   const corrupted = !item.link;
   const locked = item.status === "locked";
+  const selected = selectedLink === item.link;
 
   const handleClick = () => {
-    if (item.link && !locked) {
-      onClick(item.link, item.title, orderNum);
+    if (!(corrupted || corrupted || selected)) {
+      onClick(item.link!, item.title, orderNum);
     }
   };
 
   return (
     <ListItem alignItems="flex-start" data-testid="course-lessons-list-item">
       <ListItemButton
-        selected={!corrupted && selectedLink === item.link}
+        selected={selected && !corrupted }
         disabled={locked || corrupted}
         sx={{
           "&.Mui-selected": {
