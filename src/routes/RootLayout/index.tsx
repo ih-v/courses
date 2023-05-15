@@ -61,7 +61,7 @@ const RootLayout = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Container fixed>
+      <Container fixed data-testid="root-layout">
         <RootHeader themeName={themeName} toggleTheme={handleToggleTheme} />
         <RootMain>
           <Outlet />

@@ -8,7 +8,7 @@ import {
   COURSE_SERIALIZED_DATA as courseData,
   COURSES_CONTEXT_STATE as state,
 } from "../../../__fake__";
-import { CorseLessonsListItemMock } from "../../../__mocks__";
+import { CourseLessonsListItemMock } from "../../../__mocks__";
 
 import CourseLessonsList from "../../../../routes/Courses/Course/CourseLessonsList";
 import { useCoursesContext } from "../../../../routes/Courses/context/CoursesContext";
@@ -24,7 +24,7 @@ vi.mock("../../../../routes/Courses/context/CoursesContext", () => ({
 
 vi.mock("../../../../routes/Courses/Course/CourseLessonsListItem", () => {
   return {
-    default: CorseLessonsListItemMock,
+    default: CourseLessonsListItemMock,
   };
 });
 
@@ -36,7 +36,7 @@ describe("CourseLessonsList component testing", () => {
     vi.clearAllMocks();
   });
 
-  test("renders", async () => {
+  test("should be rendered & set to context initial lesson info", async () => {
     (useAsyncValue as Mock).mockReturnValue(courseData);
     (useCoursesContext as Mock).mockReturnValue({
       state,
@@ -50,7 +50,7 @@ describe("CourseLessonsList component testing", () => {
     );
 
     expect(screen.getByTestId("course-lessons-list")).toBeInTheDocument();
-    const children = screen.getAllByTestId("corse-lessons-list-item-mock");
+    const children = screen.getAllByTestId("course-lessons-list-item-mock");
     expect(children.length).toBe(2);
     expect(setState).toHaveBeenCalledOnce();
     expect(setState).toHaveBeenCalledWith(expect.any(Function));

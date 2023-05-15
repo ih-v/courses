@@ -9,8 +9,9 @@ export type VideoPlayerProps = {
 export const VideoPlayerMock = forwardRef<HTMLVideoElement, VideoPlayerProps>(
   ({ link, attachCb, errorCb, ...props }, ref) => {
     return (
-      <div>
+      <div data-testid="video-player-mock">
         <video ref={ref} {...props} />
+        <button onClick={attachCb} data-testid="video-attach-button" />
         <button onClick={errorCb} data-testid="video-error-button" />
       </div>
     );

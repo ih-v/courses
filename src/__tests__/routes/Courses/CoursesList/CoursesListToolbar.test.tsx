@@ -1,29 +1,41 @@
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { CoursesProvider } from "../../../../routes/Courses/context/CoursesContext";
-import CoursesToolbar from "../../../../routes/Courses/CoursesList/CoursesListToolbar";
+import CoursesListToolbar from "../../../../routes/Courses/CoursesList/CoursesListToolbar";
 
-describe("CoursesToolbar component testing", () => {
-  test("Should be rendered", async () => {
-    const user = userEvent.setup();
-
+describe("CoursesListToolbar component testing", () => {
+  beforeEach(() => {
     render(
       <CoursesProvider>
-        <CoursesToolbar />
+        <CoursesListToolbar />
       </CoursesProvider>
     );
+  });
 
-    expect(screen.getByTestId("courses-toolbar")).toBeInTheDocument();
+  test("should be rendered", () => {
+    expect(screen.getByTestId("courses-list-toolbar")).toBeInTheDocument();
+  });
 
-    const input = screen.getByTestId("search-input") as HTMLInputElement;
+  test("search input should work", async () => {
+    const user = userEvent.setup();
+
+    const input = screen.getByTestId(
+      "courses-list-toolbar-search"
+    ) as HTMLInputElement;
     expect(input).toBeInTheDocument();
     expect(input.value).toBe("");
     await user.type(input, "some search text");
     expect(input.value).toBe("some search text");
+  });
 
-    const checkbox = screen.getByRole("checkbox") as HTMLInputElement;
+  test("filter checkbox should work", async () => {
+    const user = userEvent.setup();
+
+    const checkbox = screen.getByTestId(
+      "courses-list-toolbar-checkbox"
+    ) as HTMLInputElement;
     expect(checkbox).toBeInTheDocument();
     expect(checkbox.checked).toBe(false);
     await user.click(checkbox);

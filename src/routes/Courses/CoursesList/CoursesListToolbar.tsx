@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, InputHTMLAttributes, useEffect, useState } from "react";
 import FilterListOffIcon from "@mui/icons-material/FilterListOff";
 import ImageSearchIcon from "@mui/icons-material/ImageSearch";
 import {
@@ -141,6 +141,11 @@ const CoursesListToolbar = () => {
                   color: "secondary.main",
                 },
               }}
+              inputProps={
+                {
+                  "data-testid": "courses-list-toolbar-checkbox",
+                } as InputHTMLAttributes<HTMLInputElement>
+              }
             />
             <Typography variant="subtitle2" noWrap component="label">
               Filter contained locked lessons

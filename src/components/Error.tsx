@@ -1,6 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useAsyncError } from "react-router-dom";
-import { useRouteError } from "react-router-dom";
+import { useAsyncError, useRouteError } from "react-router-dom";
 
 const Error = () => {
   const asyncError = useAsyncError() as { message?: string };
@@ -21,7 +20,7 @@ const Error = () => {
     >
       <Typography variant="h4">Sorry, but someting goes wrong...</Typography>
       {asyncError && (
-        <Typography variant="h6" data-testid="error-fetching">
+        <Typography variant="h6" data-testid="error-fetch">
           Error!{" "}
           {asyncError.message ?? <span>{JSON.stringify(asyncError)}</span>}
         </Typography>

@@ -10,7 +10,8 @@ type TestData = {
 describe.each([
   { input: 0, output: "00:00:00" },
   { input: 45.72, output: "00:00:45" },
-  { input: 132, output: "00:02:12" },
+  { input: 521, output: "00:08:41" },
+  { input: 1401, output: "00:23:21" },
   { input: 45663, output: "12:41:03" },
   { input: 4566399638, output: "1268444:20:38" },
 ])("secondsToTime utility testing", ({ input, output }: TestData) => {

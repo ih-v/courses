@@ -58,7 +58,7 @@ const CoursesListItem = ({ item }: CoursesListItemProps) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleCardClick}
-      data-testid="courses-list-Item"
+      data-testid="courses-list-item"
     >
       <CardActionArea
         sx={{ display: "flex", flexDirection: "column", height: "100%" }}

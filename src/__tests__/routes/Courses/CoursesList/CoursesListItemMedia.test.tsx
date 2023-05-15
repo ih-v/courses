@@ -1,112 +1,112 @@
 import { describe, test, expect, vi, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import { VideoPlayerMock } from "../../../__mocks__/VideoPlayerMock";
-import CoursePreviewMedia from "../../../../routes/Courses/CoursesList/CoursesListItemMedia";
+import { FluidImageMock, VideoPlayerMock } from "../../../__mocks__";
+import { CoursesListItemState } from "../../../../routes/Courses/CoursesList/CoursesListItem";
+import CoursesListItemMedia from "../../../../routes/Courses/CoursesList/CoursesListItemMedia";
 
-vi.mock("../../../components/VideoPlayer", () => {
+vi.mock("../../../../components/VideoPlayer", () => {
   return {
     default: VideoPlayerMock,
   };
 });
 
-vi.spyOn(HTMLMediaElement.prototype, "play").mockImplementation(() =>
-  Promise.resolve()
+vi.mock("../../../../components/FluidImage", () => {
+  return {
+    default: FluidImageMock,
+  };
+});
+
+vi.spyOn(HTMLMediaElement.prototype, "play").mockImplementation(
+  vi.fn(() => Promise.resolve())
 );
 
-vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(() => {});
+vi.spyOn(HTMLMediaElement.prototype, "pause").mockImplementation(vi.fn());
 
-describe("CoursePreviewMedia component testing", () => {
+describe("CoursesListItemMedia component testing", () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
 
-  test("Rendering with state: 'idle' - show course image", () => {
+  const renderComponentWithStatus = (status: CoursesListItemState) => {
     render(
-      <CoursePreviewMedia
-        status={"idle"}
+      <CoursesListItemMedia
+        status={status}
         imageLink={"https://somelink/cover.webp"}
         videoLink={"https://somelink/videos"}
-        onSuccess={() => {}}
-        onError={() => {}}
+        onSuccess={vi.fn()}
+        onError={vi.fn()}
       />
     );
-    expect(screen.getByTestId("course-preview-img-idle")).toBeInTheDocument();
-    expect(screen.queryByTestId("course-preview-video")).toBeNull();
-    expect(screen.queryByTestId("course-preview-img-pending")).toBeNull();
-    expect(screen.queryByTestId("course-preview-img-error")).toBeNull();
+  };
+  const VIDEO_BOX_MOCK_ID = "video-player-mock";
+  const IMG_BOX_MOCK_ID = "fluid-image-mock";
+  const VIDEO_ID = "courses-list-item-media-video";
+  const IDLE_IMG_ID = "courses-list-item-media-img-idle";
+  const PENDING_IMG_ID = "courses-list-item-media-img-pending";
+  const ERROR_IMG_ID = "courses-list-item-media-img-error";
+
+  test("should be rendered in 'idle' mode - course image showed", () => {
+    renderComponentWithStatus("idle");
+
+    expect(screen.queryByTestId(VIDEO_BOX_MOCK_ID)).toBeNull();
+    expect(screen.queryByTestId(IMG_BOX_MOCK_ID)).toBeInTheDocument();
+    expect(screen.queryByTestId(VIDEO_ID)).toBeNull();
+    expect(screen.queryByTestId(IDLE_IMG_ID)).toBeInTheDocument();
+    expect(screen.queryByTestId(PENDING_IMG_ID)).toBeNull();
+    expect(screen.queryByTestId(ERROR_IMG_ID)).toBeNull();
   });
 
-  test("Rendering with state: 'pending' - show loading image", () => {
-    render(
-      <CoursePreviewMedia
-        status={"pending"}
-        imageLink={"https://somelink/cover.webp"}
-        videoLink={"https://somelink/videos"}
-        onSuccess={() => {}}
-        onError={() => {}}
-      />
-    );
-    expect(
-      screen.getByTestId("course-preview-img-pending")
-    ).toBeInTheDocument();
-    expect(screen.getByTestId("course-preview-video")).toBeInTheDocument();
-    expect(screen.getByTestId("course-preview-video")).toHaveStyle({
-      display: "none",
-    });
-    expect(screen.queryByTestId("course-preview-img-idle")).toBeNull();
-    expect(screen.queryByTestId("course-preview-img-error")).toBeNull();
+  test("should be rendered in 'pending' mode - loading image showed", () => {
+    renderComponentWithStatus("pending");
+
+    expect(screen.queryByTestId(VIDEO_BOX_MOCK_ID)).toBeInTheDocument();
+    expect(screen.queryByTestId(IMG_BOX_MOCK_ID)).toBeInTheDocument();
+    expect(screen.queryByTestId(VIDEO_ID)).toBeInTheDocument();
+    expect(screen.queryByTestId(VIDEO_ID)).toHaveStyle({ display: "none" });
+    expect(screen.queryByTestId(IDLE_IMG_ID)).toBeNull();
+    expect(screen.queryByTestId(PENDING_IMG_ID)).toBeInTheDocument();
+    expect(screen.queryByTestId(ERROR_IMG_ID)).toBeNull();
   });
 
-  test("Rendering with state: 'success' - show video", () => {
-    render(
-      <CoursePreviewMedia
-        status={"success"}
-        imageLink={"https://somelink/cover.webp"}
-        videoLink={"https://somelink/videos"}
-        onSuccess={() => {}}
-        onError={() => {}}
-      />
-    );
-    expect(screen.getByTestId("course-preview-video")).toBeInTheDocument();
-    expect(screen.getByTestId("course-preview-video")).toHaveStyle({
-      display: "inherit",
-    });
-    expect(screen.queryByTestId("course-preview-img-idle")).toBeNull();
-    expect(screen.queryByTestId("course-preview-img-pending")).toBeNull();
-    expect(screen.queryByTestId("course-preview-img-error")).toBeNull();
+  test("should be rendered in 'success' mode - show video", () => {
+    renderComponentWithStatus("success");
+
+    expect(screen.queryByTestId(VIDEO_BOX_MOCK_ID)).toBeInTheDocument();
+    expect(screen.queryByTestId(IMG_BOX_MOCK_ID)).toBeNull();
+    expect(screen.queryByTestId(VIDEO_ID)).toBeInTheDocument();
+    expect(screen.queryByTestId(VIDEO_ID)).toHaveStyle({ display: "inherit" });
+    expect(screen.queryByTestId(IDLE_IMG_ID)).toBeNull();
+    expect(screen.queryByTestId(PENDING_IMG_ID)).toBeNull();
+    expect(screen.queryByTestId(ERROR_IMG_ID)).toBeNull();
   });
 
-  test("Rendering with state: 'error' - show error image", () => {
-    render(
-      <CoursePreviewMedia
-        status={"error"}
-        imageLink={"https://somelink/cover.webp"}
-        videoLink={"https://somelink/videos"}
-        onSuccess={() => {}}
-        onError={() => {}}
-      />
-    );
-    expect(screen.getByTestId("course-preview-img-error")).toBeInTheDocument();
-    expect(screen.queryByTestId("course-preview-video")).toBeNull();
-    expect(screen.queryByTestId("course-preview-img-idle")).toBeNull();
-    expect(screen.queryByTestId("course-preview-img-pending")).toBeNull();
+  test("should be rendered in 'error' mode - error image showed", () => {
+    renderComponentWithStatus("error");
+
+    expect(screen.queryByTestId(VIDEO_BOX_MOCK_ID)).toBeNull();
+    expect(screen.queryByTestId(IMG_BOX_MOCK_ID)).toBeInTheDocument();
+    expect(screen.queryByTestId(VIDEO_ID)).toBeNull();
+    expect(screen.queryByTestId(IDLE_IMG_ID)).toBeNull();
+    expect(screen.queryByTestId(PENDING_IMG_ID)).toBeNull();
+    expect(screen.queryByTestId(ERROR_IMG_ID)).toBeInTheDocument();
   });
 
   test("Rendering without videolink - show loading image", () => {
     render(
-      <CoursePreviewMedia
+      <CoursesListItemMedia
         status={"pending"}
         imageLink={"https://somelink/cover.webp"}
-        onSuccess={() => {}}
-        onError={() => {}}
+        onSuccess={vi.fn()}
+        onError={vi.fn()}
       />
     );
-    expect(
-      screen.getByTestId("course-preview-img-pending")
-    ).toBeInTheDocument();
-    expect(screen.queryByTestId("course-preview-video")).toBeNull();
-    expect(screen.queryByTestId("course-preview-img-idle")).toBeNull();
-    expect(screen.queryByTestId("course-preview-img-error")).toBeNull();
+
+    expect(screen.queryByTestId(VIDEO_BOX_MOCK_ID)).toBeNull();
+    expect(screen.queryByTestId(IMG_BOX_MOCK_ID)).toBeInTheDocument();
+    expect(screen.queryByTestId(VIDEO_ID)).toBeNull();
+    expect(screen.queryByTestId(IDLE_IMG_ID)).toBeNull();
+    expect(screen.queryByTestId(PENDING_IMG_ID)).toBeInTheDocument();
+    expect(screen.queryByTestId(ERROR_IMG_ID)).toBeNull();
   });
 });

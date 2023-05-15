@@ -7,7 +7,7 @@ import { ICourse } from "../../../types";
 import noImg from "../../../assets/no-img.jpg";
 import loadingImg from "../../../assets/loading-white.gif";
 
-const CorseDescription = () => {
+const CourseDescription = () => {
   const course = useAsyncValue() as ICourse;
 
   const duration = course.lessons.reduce((acc, item) => {
@@ -98,4 +98,4 @@ const CorseDescription = () => {
   );
 };
 
-export default CorseDescription;
+export default CourseDescription;

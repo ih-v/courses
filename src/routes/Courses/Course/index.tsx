@@ -4,9 +4,9 @@ import { Await, useLoaderData } from "react-router-dom";
 import { ICourse } from "../../../types";
 import Error from "../../../components/Error";
 
-import CorseDescription from "./CorseDescription";
+import CourseDescription from "./CourseDescription";
 import CourseFallback from "./CourseFallback";
-import LessonsList from "./CourseLessonsList";
+import CourseLessonsList from "./CourseLessonsList";
 
 type CourseItemData = {
   course: Promise<ICourse>;
@@ -19,8 +19,8 @@ const Course = () => {
     <div data-testid="course">
       <Suspense fallback={<CourseFallback />}>
         <Await resolve={course} errorElement={<Error />}>
-          <CorseDescription />
-          <LessonsList />
+          <CourseDescription />
+          <CourseLessonsList />
         </Await>
       </Suspense>
     </div>

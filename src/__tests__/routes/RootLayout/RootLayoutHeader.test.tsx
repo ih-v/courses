@@ -3,7 +3,7 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import RootHeader from "../../../routes/RootLayout/RootLayoutHeader";
+import RootLayoutHeader from "../../../routes/RootLayout/RootLayoutHeader";
 
 const mockedUseNavigate = vi.fn();
 
@@ -29,16 +29,23 @@ describe("RootHeader component testing", () => {
       const route = "/";
       render(
         <MemoryRouter initialEntries={[route]}>
-          <RootHeader themeName={themeName} toggleTheme={mockedToggleTheme} />
+          <RootLayoutHeader
+            themeName={themeName}
+            toggleTheme={mockedToggleTheme}
+          />
         </MemoryRouter>
       );
-      header = screen.getByTestId("root-header");
-      navigateButton = screen.getByTestId("root-header-navigate-button");
-      themeButton = screen.getByTestId("root-header-theme-button");
-      homeIcon = screen.queryByTestId("root-header-home-icon");
-      backIcon = screen.queryByTestId("root-header-back-icon");
-      lightThemeIcon = screen.queryByTestId("root-header-light-theme-icon");
-      darkThemeIcon = screen.queryByTestId("root-header-dark-theme-icon");
+      header = screen.getByTestId("root-layout-header");
+      navigateButton = screen.getByTestId("root-layout-header-navigate-button");
+      themeButton = screen.getByTestId("root-layout-header-theme-button");
+      homeIcon = screen.queryByTestId("root-layout-header-home-icon");
+      backIcon = screen.queryByTestId("root-layout-header-back-icon");
+      lightThemeIcon = screen.queryByTestId(
+        "root-layout-header-light-theme-icon"
+      );
+      darkThemeIcon = screen.queryByTestId(
+        "root-layout-header-dark-theme-icon"
+      );
     });
 
     afterEach(() => {
@@ -77,7 +84,7 @@ describe("RootHeader component testing", () => {
             <Route
               path="course/:courseId"
               element={
-                <RootHeader
+                <RootLayoutHeader
                   themeName={themeName}
                   toggleTheme={mockedToggleTheme}
                 />
@@ -86,13 +93,17 @@ describe("RootHeader component testing", () => {
           </Routes>
         </MemoryRouter>
       );
-      header = screen.getByTestId("root-header");
-      navigateButton = screen.getByTestId("root-header-navigate-button");
-      themeButton = screen.getByTestId("root-header-theme-button");
-      homeIcon = screen.queryByTestId("root-header-home-icon");
-      backIcon = screen.queryByTestId("root-header-back-icon");
-      lightThemeIcon = screen.queryByTestId("root-header-light-theme-icon");
-      darkThemeIcon = screen.queryByTestId("root-header-dark-theme-icon");
+      header = screen.getByTestId("root-layout-header");
+      navigateButton = screen.getByTestId("root-layout-header-navigate-button");
+      themeButton = screen.getByTestId("root-layout-header-theme-button");
+      homeIcon = screen.queryByTestId("root-layout-header-home-icon");
+      backIcon = screen.queryByTestId("root-layout-header-back-icon");
+      lightThemeIcon = screen.queryByTestId(
+        "root-layout-header-light-theme-icon"
+      );
+      darkThemeIcon = screen.queryByTestId(
+        "root-layout-header-dark-theme-icon"
+      );
     });
 
     afterEach(() => {

@@ -1,17 +1,19 @@
 import { describe, test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 
-import RootMain from "../../../routes/RootLayout/RootLayoutContainer";
+import RootLayoutContainer from "../../../routes/RootLayout/RootLayoutContainer";
 
 describe("component testing", () => {
   test("renders and render children", () => {
     render(
-      <RootMain>
-        <div data-testid="root-main-children"></div>
-      </RootMain>
+      <RootLayoutContainer>
+        <div data-testid="root-layout-container-children"></div>
+      </RootLayoutContainer>
     );
 
-    expect(screen.getByTestId("root-main")).toBeInTheDocument();
-    expect(screen.getByTestId("root-main-children")).toBeInTheDocument();
+    expect(screen.getByTestId("root-layout-container")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("root-layout-container-children")
+    ).toBeInTheDocument();
   });
 });

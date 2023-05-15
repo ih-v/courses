@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ChangeEvent, useEffect } from "react";
 import { AppBar, Pagination, Theme } from "@mui/material";
 
 import { useCoursesContext } from "../context/CoursesContext";
@@ -20,10 +20,7 @@ const CoursesListPagination = ({
     }
   }, [divider, length, setState, state.page]);
 
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
+  const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
     setState((prev) => ({ ...prev, page: value }));
   };
 

@@ -40,7 +40,7 @@ export const ALL_COURSES_DATA = [
       "Find the inner strength to overcome procrastination and reach your goals.",
     duration: 1486,
     lessonsCount: 5,
-    containsLockedLessons: false,
+    containsLockedLessons: true,
     previewImageLink:
       "https://wisey.app/assets/images/web/course-covers/the-power-of-self-discipline-how-to-stay-on-track",
     rating: 5,

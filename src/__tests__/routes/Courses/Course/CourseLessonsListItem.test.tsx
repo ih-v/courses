@@ -1,4 +1,4 @@
-import { describe, test, expect, vi } from "vitest";
+import { describe, test, expect, vi, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -8,13 +8,16 @@ import { ICourseLessonsListItem } from "../../../../types";
 import CourseLessonsListItem from "../../../../routes/Courses/Course/CourseLessonsListItem";
 
 describe("ICoursesListItem component testing", () => {
-  test("renders as unselected & not disabled", async () => {
-    const orderNum = 0;
-    const lesson = courseData.lessons[orderNum] as ICourseLessonsListItem;
-    const link = "https://somelink/videos";
-    const handleClick = vi.fn();
-    const user = userEvent.setup();
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
+  const handleClick = vi.fn();
+  const renderComponentWithProps = (
+    link: string,
+    lesson: ICourseLessonsListItem,
+    orderNum: number
+  ) => {
     render(
       <CourseLessonsListItem
         selectedLink={link}
@@ -23,6 +26,15 @@ describe("ICoursesListItem component testing", () => {
         onClick={handleClick}
       />
     );
+  };
+
+  test("should be rendered in unselected & not disabled mode", async () => {
+    const orderNum = 0;
+    const lesson = courseData.lessons[orderNum] as ICourseLessonsListItem;
+    const link = "https://somelink/videos";
+    const user = userEvent.setup();
+
+    renderComponentWithProps(link, lesson, orderNum);
 
     expect(screen.getByTestId("course-lessons-list-item")).toBeInTheDocument();
     expect(screen.getByText(/why we lack motivation/i)).toBeInTheDocument();
@@ -39,21 +51,13 @@ describe("ICoursesListItem component testing", () => {
     );
   });
 
-  test("renders as selected", async () => {
+  test("should be rendered in selected mode", async () => {
     const orderNum = 0;
     const lesson = courseData.lessons[orderNum] as ICourseLessonsListItem;
     const link = lesson.link;
-    const handleClick = vi.fn();
     const user = userEvent.setup();
 
-    render(
-      <CourseLessonsListItem
-        selectedLink={link!}
-        item={lesson}
-        orderNum={orderNum}
-        onClick={handleClick}
-      />
-    );
+    renderComponentWithProps(link!, lesson, orderNum);
 
     const button = screen.getByTestId("course-lessons-list-item-button");
     expect(button).toHaveClass("Mui-selected");
@@ -62,21 +66,13 @@ describe("ICoursesListItem component testing", () => {
     expect(handleClick).not.toHaveBeenCalled();
   });
 
-  test("renders as disabled because locked", async () => {
+  test("should be rendered in disabled mode because locked", async () => {
     const orderNum = 1;
     const lesson = courseData.lessons[orderNum] as ICourseLessonsListItem;
     const link = "https://somelink/videos";
-    const handleClick = vi.fn();
     const user = userEvent.setup();
 
-    render(
-      <CourseLessonsListItem
-        selectedLink={link}
-        item={lesson}
-        orderNum={orderNum}
-        onClick={handleClick}
-      />
-    );
+    renderComponentWithProps(link, lesson, orderNum);
 
     const button = screen.getByTestId("course-lessons-list-item-button");
     expect(button).toHaveClass("Mui-disabled");
@@ -86,24 +82,16 @@ describe("ICoursesListItem component testing", () => {
     );
   });
 
-  test("renders as disabled because corrupted", async () => {
+  test("should be rendered in disabled mode because link corrupted", async () => {
     const orderNum = 0;
     const lesson = {
       ...courseData.lessons[orderNum],
       link: "",
     } as ICourseLessonsListItem;
     const link = "https://somelink/videos";
-    const handleClick = vi.fn();
     const user = userEvent.setup();
 
-    render(
-      <CourseLessonsListItem
-        selectedLink={link}
-        item={lesson}
-        orderNum={orderNum}
-        onClick={handleClick}
-      />
-    );
+    renderComponentWithProps(link, lesson, orderNum);
 
     const button = screen.getByTestId("course-lessons-list-item-button");
     expect(button).toHaveClass("Mui-disabled");

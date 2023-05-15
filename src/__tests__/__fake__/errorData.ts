@@ -1,4 +1,7 @@
-export const ERROR_DATA = {
-  statusCode: 404,
-  message: "Resourse not found",
+export const ERROR_FETCH_DATA = {
+  message: "Server error",
+};
+
+export const ERROR_ROUTE_DATA = {
+  data: "Resourse not found",
 };

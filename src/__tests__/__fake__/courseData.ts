@@ -6,7 +6,7 @@ export const COURSE_DATA = {
   status: "launched",
   description:
     "Reignite your inner drive by managing factors that dampen your motivation.",
-  duration: 1401,
+  duration: 521,
   previewImageLink:
     "https://wisey.app/assets/images/web/course-covers/lack-of-motivation-how-to-overcome-it",
   rating: 3.5,

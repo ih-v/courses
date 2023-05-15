@@ -1,22 +1,21 @@
 import { describe, test, expect, vi, afterEach, Mock } from "vitest";
 
 import baseApi from "../../api/base.api";
-import { getAll, getById } from "../../api/courses.api";
 
 import {
-  FAKE_ALL_COURSES_DATA,
-  FAKE_ALL_COURSES_SERIALIZED_DATA,
-  FAKE_COURSE_DATA,
-  FAKE_COURSE_SERIALIZED_DATA,
-} from "../__fake__/themeOptions";
+  ALL_COURSES_DATA as coursesData,
+  ALL_COURSES_SERIALIZED_DATA as coursesSerializedData,
+  COURSE_DATA as courseData,
+  COURSE_SERIALIZED_DATA as courseSerializedData,
+} from "../__fake__";
 
-const baseApiGet = vi.fn();
+import { getAll, getById } from "../../api/courses.api";
 
 vi.mock("../../api/base.api", () => {
   return {
     default: {
       post: vi.fn(),
-      get: baseApiGet,
+      get: vi.fn(),
       delete: vi.fn(),
       put: vi.fn(),
       create: vi.fn().mockReturnThis(),
@@ -41,24 +40,24 @@ describe("Courses api testing", () => {
 
   test("getAll", async () => {
     (baseApi.get as Mock).mockResolvedValue({
-      data: { courses: FAKE_ALL_COURSES_DATA },
+      data: { courses: coursesData },
     });
 
     const courses = await getAll();
 
-    expect(courses).toEqual(FAKE_ALL_COURSES_SERIALIZED_DATA);
+    expect(courses).toEqual(coursesSerializedData);
     expect(baseApi.get).toHaveBeenCalledWith("/core/preview-courses");
     expect(baseApi.get).toHaveBeenCalledTimes(1);
   });
 
   test("getById", async () => {
-    (baseApi.get as Mock).mockResolvedValue({ data: FAKE_COURSE_DATA });
+    (baseApi.get as Mock).mockResolvedValue({ data: courseData });
 
-    const courses = await getById(FAKE_COURSE_DATA.id);
+    const course = await getById(courseData.id);
 
-    expect(courses).toEqual(FAKE_COURSE_SERIALIZED_DATA);
+    expect(course).toEqual(courseSerializedData);
     expect(baseApi.get).toHaveBeenCalledWith(
-      `/core/preview-courses/${FAKE_COURSE_DATA.id}`
+      `/core/preview-courses/${courseData.id}`
     );
     expect(baseApi.get).toHaveBeenCalledTimes(1);
   });
