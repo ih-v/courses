@@ -1,2 +1,5 @@
-Description of the project layers
-![Alt text](src/assets/courses-layers.png)
+Library sourse files:
+![](src/lib)
+
+library builded files
+![](dist)
