@@ -20,7 +20,14 @@ export default defineConfig({
     },
     // https://vitejs.dev/config/build-options.html#build-rollupoptions
     rollupOptions: {
-      external: ["react", "react-dom"],
+      external: [
+        "react",
+        "react-dom/client",
+        "@mui/material",
+        "@mui/icons-material",
+        "hls.js",
+        "react-router-dom",
+      ],
       output: {
         globals: {
           react: "React",
